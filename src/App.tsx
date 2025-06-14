@@ -16,13 +16,10 @@ function App() {
 
   return (
     <>
-      <Canvas shadows camera={{ position: [-100, 100, 0], fov:30, far: 100000 }} style={{ backgroundColor: "black", position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh" }}>
-
+      <HUD/>
+      <Canvas className="canvas" shadows camera={{ position: [-100, 100, 0], fov:30, far: 100000 }} style={{ backgroundColor: "black", position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh" }}>
         <SolarSystem data={systemData}/>
-
-        <HUD/>
-        <OrbitControls/>
-
+        <OrbitControls enableDamping dampingFactor={0.05}/>
         <Environment background backgroundIntensity={0.2} environmentIntensity={0.1} files={[
           'src/assets/skybox/px.png',
           'src/assets/skybox/nx.png',
@@ -31,7 +28,6 @@ function App() {
           'src/assets/skybox/pz.png',
           'src/assets/skybox/nz.png',
         ]}/>
-
         <EffectComposer>
           {/* <DepthOfField focusDistance={0.01} focalLength={0.02} bokehScale={2} height={480} /> */}
           <Bloom intensity={1.2} luminanceThreshold={0.5} opacity={0.2} />

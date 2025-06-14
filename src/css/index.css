@@ -1,0 +1,26 @@
+@font-face {
+  font-family: 'Diamonds';
+  src: url('../assets/fonts/diamonds.woff2') format('woff2'),
+       url('../assets/fonts/diamonds.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  display: swap;
+}
+
+@font-face {
+  font-family: 'Eunomia';
+  src: url('../assets/fonts/eunomia.woff2') format('woff2'),
+       url('../assets/fonts/eunomia.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  display: swap;
+}
+
+@font-face {
+  font-family: 'Foundation';
+  src: url('../assets/fonts/foundation.woff2') format('woff2'),
+       url('../assets/fonts/foundation.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  display: swap;
+}
