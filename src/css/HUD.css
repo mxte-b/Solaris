@@ -29,6 +29,12 @@
     align-items: center;
 }
 
+.gradient {
+    background: linear-gradient(to bottom, white, grey);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
 
 .logo {
     position: absolute;
@@ -38,7 +44,7 @@
     z-index: 10;
     width: 4rem;
     height: 4rem;
-    fill: #414141;
+    fill: #ffffff46;
     transition: fill 0.3s ease;
 }
 
@@ -48,4 +54,44 @@
     letter-spacing: normal;
     padding-top: 0.8rem;
     color: rgb(197, 197, 197);
+}
+
+.footer {
+    position: absolute;
+    padding: 1rem 2rem;
+    bottom: 0;
+}
+
+div:has(.loader) {
+    transform: none !important;
+}
+
+.loader {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #0e0e0e;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader > h1 {
+    opacity: 0;
+    transform: translateY(100%);
+    animation: fadein 1s ease forwards;
+}
+
+@keyframes fadein {
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes fadeout {
+    to {
+        opacity: 0;
+    }
 }

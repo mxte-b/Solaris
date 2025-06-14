@@ -1,7 +1,7 @@
-import { useEffect } from "react"
 import Star from "./Star";
 import { Vector3 } from "three";
 import Planet from "./Planet";
+import { Suspense } from "react";
 
 type Visual = {
   texture: string;
@@ -35,17 +35,19 @@ type SolarSystemProps = {
 };
 
 const DISTANCE_SCALE = 2;
-const RADIUS_SCALE = 3;
+const RADIUS_SCALE = 10;
+
+const logScaled = (x: number) => Math.max(Math.log(x + 1) * RADIUS_SCALE, 0.5); 
 
 const SolarSystem = ({ data } : SolarSystemProps) => {
     return (
-        <>
+        <Suspense fallback={null}>
             {data.bodies.map((b, i) => 
                 b.type == "Star" 
-                ? <Star key={i} radius={Math.floor(Math.log(b.radius) * RADIUS_SCALE)} position={new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE)} color={b.visual.color} texturePath={b.visual.texture}/> 
-                : <Planet key={i} radius={b.radius * RADIUS_SCALE} position={new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE)} color="white" texturePath={b.visual.texture}/>
+                ? <Star key={i} radius={logScaled(b.radius)} position={new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE)} color={b.visual.color} texturePath={b.visual.texture}/> 
+                : <Planet key={i} radius={logScaled(b.radius)} position={new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE)} color="white" texturePath={b.visual.texture}/>
             )}
-        </>
+        </Suspense>
     );
 }
 

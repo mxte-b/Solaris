@@ -19,47 +19,19 @@ const Star = ({
     lightColor = "white",
     texturePath = null
 } : StarProps) => {
-
-    const lights = useMemo(() => {
-        const dirs = [
-            new Vector3(1,0,0), new Vector3(-1,0,0),
-            new Vector3(0,1,0), new Vector3(0,-1,0),
-            new Vector3(0,0,1), new Vector3(0,0,-1),
-        ];
-
-        return dirs.map((d) => ({
-            pos: d.multiplyScalar(radius * 0.9).add(position),
-        }))
-    }, [position, radius])
-
+    
     const texture = useMemo(() => texturePath ? useLoader(TextureLoader, texturePath) : null, [texturePath]);
 
     return (
         <mesh position = {position}>
             <sphereGeometry args={[radius, 32, 32]}/>
             <meshStandardMaterial emissive={color} {...(texture ? { emissiveMap: texture } : { color: color})} emissiveIntensity={3}/>
-            {lights.map((l, i) => (
-                <pointLight
-                key={i}
-                position={l.pos}
-                intensity={200}
-                distance={1000000}
-                decay={1}
-                color={lightColor}
-                castShadow
-                shadow-mapSize-width={2048}
-                shadow-mapSize-height={2048}
-                />
-            ))}
             <pointLight
                 position={position}
-                intensity={200}
-                distance={1000}
-                decay={1}
+                intensity={10}
+                distance={1000000}
+                decay={0.2}
                 color={lightColor}
-                castShadow
-                shadow-mapSize-width={2048}
-                shadow-mapSize-height={2048}
             />
         </mesh>
     )
