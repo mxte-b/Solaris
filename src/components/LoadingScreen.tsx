@@ -1,13 +1,14 @@
-import { useEffect, useReducer, useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
 const LoadingScreen = ({ progress = 0 }) => {
     const loaderRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
+        let animation : GSAPAnimation;
         if (progress == 100) {
             setTimeout(() => {
-                gsap.to(loaderRef.current, 
+                animation = gsap.to(loaderRef.current, 
                     {
                         "opacity":0,
                         "duration":1,
@@ -19,6 +20,12 @@ const LoadingScreen = ({ progress = 0 }) => {
                         }
                     });
             }, 100)
+        }
+
+        return () => {
+            if (animation) {
+                animation.kill();
+            }
         }
     }, [progress])
 
