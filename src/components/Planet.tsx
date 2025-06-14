@@ -18,10 +18,12 @@ const Planet = ({
     const texture = texturePath ? useLoader(TextureLoader, texturePath) : null;
 
     return (
-        <mesh position = {position}>
-            <sphereGeometry args={[radius, 32, 32]}/>
-            <meshStandardMaterial color={color} {...(texture ? { map: texture } : {})}/>
-        </mesh>
+        <group position={position}>
+            <mesh castShadow receiveShadow>
+                <sphereGeometry args={[radius, 32, 32]}/>
+                <meshStandardMaterial color={color} {...(texture ? { map: texture } : {})}/>
+            </mesh>
+        </group>
     )
 }
 

@@ -1,20 +1,26 @@
+import "./css/App.css"
 
 import { Canvas } from "@react-three/fiber"
-import "./css/App.css"
-import { Bloom, EffectComposer } from "@react-three/postprocessing"
 import { OrbitControls, Environment} from '@react-three/drei'
-import Star from "./ts/Star"
-import { Vector3 } from "three"
-import Planet from "./ts/Planet"
+import { Bloom, Noise, Vignette, DepthOfField, EffectComposer } from "@react-three/postprocessing"
+
+import systemData from "./assets/system.json"
+import SolarSystem from "./components/SolarSystem"
+import { useEffect } from "react"
+import HUD from "./components/HUD"
 
 function App() {
+  useEffect(() => {
+    console.log(systemData)
+  })
+
   return (
     <>
-      <Canvas camera={{ position: [-10, 20, 0], fov:50 }} style={{ backgroundColor: "black", position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh" }}>
+      <Canvas shadows camera={{ position: [-100, 100, 0], fov:30, far: 100000 }} style={{ backgroundColor: "black", position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh" }}>
 
-        <Star position={new Vector3(0, 0, 0)} color="#FFCF37" texturePath={"src/assets/planets/sun.jpg"}/>
-        <Planet position={new Vector3(0, 0, 10)} color="white" texturePath={"src/assets/planets/earth.jpg"}/>
+        <SolarSystem data={systemData}/>
 
+        <HUD/>
         <OrbitControls/>
 
         <Environment background backgroundIntensity={0.2} environmentIntensity={0.1} files={[
@@ -27,7 +33,10 @@ function App() {
         ]}/>
 
         <EffectComposer>
+          {/* <DepthOfField focusDistance={0.01} focalLength={0.02} bokehScale={2} height={480} /> */}
           <Bloom intensity={1.2} luminanceThreshold={0.5} opacity={0.2} />
+          <Noise opacity={0.05} />
+          <Vignette eskil={false} offset={0.1} darkness={1} />
         </EffectComposer>
       </Canvas>
     </>

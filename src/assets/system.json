@@ -1,0 +1,202 @@
+{
+  "name": "The Solar System",
+  "bodies": [
+    {
+      "name": "The Sun",
+      "id": 1,
+      "type": "Star",
+      "distanceLS": 0.00,
+      "radius": 109.30,
+      "visual": {
+        "texture": "src/assets/textures/sun.jpg",
+        "color": "#FFCF37"
+      }
+    },
+    {
+      "name": "Mercury",
+      "id": 2,
+      "type": "Planet",
+      "distanceLS": 194.61,
+      "radius": 0.383,
+      "moons": [],
+      "visual": {
+        "texture": "src/assets/textures/mercury.jpg",
+        "color": "#1a1a1a"
+      }
+    },
+    {
+      "name": "Venus",
+      "id": 3,
+      "type": "Planet",
+      "distanceLS": 359.28,
+      "radius": 0.950,
+      "moons": [],
+      "visual": {
+        "texture": "src/assets/textures/venus.jpg",
+        "color": "#e6e6e6"
+      }
+    },
+    {
+      "name": "Earth",
+      "id": 4,
+      "type": "Planet",
+      "distanceLS": 499.00,
+      "radius": 1.000,
+      "moons": [
+        {
+          "name": "Moon",
+          "id": 401,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 1.282,
+          "radius": 0.273
+        }
+      ],
+      "visual": {
+        "texture": "src/assets/textures/earth.jpg",
+        "color": "#2f6a69"
+      }
+    },
+    {
+      "name": "Mars",
+      "id": 5,
+      "type": "Planet",
+      "distanceLS": 758.48,
+      "radius": 0.532,
+      "moons": [
+        {
+          "name": "Phobos",
+          "id": 501,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 0.032,
+          "radius": 0.002
+        },
+        {
+          "name": "Deimos",
+          "id": 502,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 0.078,
+          "radius": 0.001
+        }
+      ],
+      "visual": {
+        "texture": "src/assets/textures/mars.jpg",
+        "color": "#993d00"
+      }
+    },
+    {
+      "name": "Jupiter",
+      "id": 6,
+      "type": "Planet",
+      "distanceLS": 2594.80,
+      "radius": 10.974,
+      "moons": [
+        {
+          "name": "Io",
+          "id": 601,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 1.375,
+          "radius": 0.286
+        },
+        {
+          "name": "Europa",
+          "id": 602,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 2.191,
+          "radius": 0.245
+        },
+        {
+          "name": "Ganymede",
+          "id": 603,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 3.495,
+          "radius": 0.413
+        },
+        {
+          "name": "Callisto",
+          "id": 604,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 6.129,
+          "radius": 0.379
+        }
+      ],
+      "visual": {
+        "texture": "src/assets/textures/jupiter.jpg",
+        "color": "#b07f35"
+      }
+    },
+    {
+      "name": "Saturn",
+      "id": 7,
+      "type": "Planet",
+      "distanceLS": 4780.42,
+      "radius": 9.143,
+      "moons": [
+        {
+          "name": "Titan",
+          "id": 701,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 3.940,
+          "radius": 0.404
+        },
+        {
+          "name": "Enceladus",
+          "id": 702,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 0.757,
+          "radius": 0.040
+        }
+      ],
+      "visual": {
+        "texture": "src/assets/textures/saturn.jpg",
+        "color": "#b08f36"
+      }
+    },
+    {
+      "name": "Uranus",
+      "id": 8,
+      "type": "Planet",
+      "distanceLS": 9570.82,
+      "radius": 3.982,
+      "moons": [
+        {
+          "name": "Titania",
+          "id": 801,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 1.442,
+          "radius": 0.124
+        },
+        {
+          "name": "Oberon",
+          "id": 802,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 1.951,
+          "radius": 0.120
+        }
+      ],
+      "visual": {
+        "texture": "src/assets/textures/uranus.jpg",
+        "color": "#5580aa"
+      }
+    },
+    {
+      "name": "Neptune",
+      "id": 9,
+      "type": "Planet",
+      "distanceLS": 15004.93,
+      "radius": 3.864,
+      "moons": [
+        {
+          "name": "Triton",
+          "id": 901,
+          "type": "Natural Satellite",
+          "planetDistanceLS": 1.177,
+          "radius": 0.212
+        }
+      ],
+      "visual": {
+        "texture": "src/assets/textures/neptune.jpg",
+        "color": "#366896"
+      }
+    }
+  ]
+}
