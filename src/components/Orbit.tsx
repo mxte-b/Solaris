@@ -25,7 +25,6 @@ type OrbitProps = {
  */
 const Orbit = ({ radius, segments = 128, center = new Vector3(0, 0, 0), color = "white" } : OrbitProps) => {
     const lineRef = useRef<Line2>(null);
-    const { camera } = useThree();
 
     // Get the global distance scale from the application state
     const DISTANCE_SCALE = useGlobals(state => state.distanceScale);
@@ -47,13 +46,6 @@ const Orbit = ({ radius, segments = 128, center = new Vector3(0, 0, 0), color = 
 
         return calculated;
     }, [radius, segments, center]);
-
-    useFrame(() => {
-        if (lineRef.current) {
-            const viewDir = new Vector3();
-            camera.getWorldDirection(viewDir);
-        }
-    });
 
     // Render the orbit as a line
     return <Line ref={lineRef} points={points} color={color} />;

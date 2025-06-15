@@ -1,9 +1,39 @@
+import { useThree } from "@react-three/fiber";
 import "../css/HUD.css"
+import { useEffect, useRef, type RefObject } from "react";
+import type { Vector2 } from "three";
+
+type HUDParams = {
+    planetPositionsRef: RefObject<Map<number, Vector2>>;
+}
 
 /**
  * HUD (Heads-Up Display) component renders the navigation bar and branding for the application.
  */
-const HUD = () => {
+const HUD = ({ planetPositionsRef } : HUDParams) => {
+    
+    const planetIndicators = useRef<Map<number, HTMLDivElement>>(new Map());
+
+    useEffect(() => {
+        console.log(planetPositionsRef.current.size)
+        let frameId : number;
+
+        const loop = () => {
+            planetPositionsRef.current.forEach((screenPos, id) => {
+                const indicator = planetIndicators.current.get(id);
+                if (indicator) {
+                    indicator.style.transform = `translate(${screenPos.x - 20}px, ${screenPos.y - 20}px) rotate(45deg)`;
+                }
+            });
+
+            frameId = requestAnimationFrame(loop);
+        }
+
+        frameId = requestAnimationFrame(loop);
+        return () => cancelAnimationFrame(frameId);
+
+    }, [planetPositionsRef]);
+
     return (
         <div style={{ width: "100%", height: "100vh"}}>
             <div className="navbar">
@@ -15,6 +45,19 @@ const HUD = () => {
                 <h5 className="credits">
                     Made by mxte_b with ❤︎
                 </h5>
+            </div>
+            <div className="hud">
+                {Array.from(planetPositionsRef.current.entries()).map(([id, _]) => (
+                    <div 
+                        key={id} 
+                        ref={(el) => {
+                            if (el) planetIndicators.current.set(id, el);
+                            else planetIndicators.current.delete(id);
+                        }} 
+                        className="planet-indicator"
+                    />
+                ))}
+
             </div>
         </div>
     );

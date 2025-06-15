@@ -1,7 +1,7 @@
 import "@react-three/fiber"
-import { Vector3, TextureLoader } from "three";
+import { Vector3, TextureLoader, Mesh } from "three";
 import { useLoader } from '@react-three/fiber'
-import { useMemo } from "react";
+import { useMemo, type RefObject } from "react";
 
 /**
  * Props for the Star component.
@@ -12,6 +12,7 @@ import { useMemo } from "react";
  * @property texturePath - Optional path to a texture image for the star's surface.
  */
 type StarProps = {
+  positionRef: RefObject<Mesh | null>;
   position?: Vector3
   radius?: number
   color?: string
@@ -24,6 +25,7 @@ type StarProps = {
  * Used to represent stars in the solar system.
  */
 const Star = ({
+    positionRef,
     position = new Vector3(1, 0, 0),
     radius = 1,
     color = "white",
@@ -34,7 +36,7 @@ const Star = ({
     const texture = useMemo(() => texturePath ? useLoader(TextureLoader, texturePath) : null, [texturePath]);
 
     return (
-        <mesh position = {position}>
+        <mesh ref={positionRef} position = {position}>
             <sphereGeometry args={[radius, 32, 32]}/>
             <meshStandardMaterial emissive={color} {...(texture ? { emissiveMap: texture } : { color: color})} emissiveIntensity={3}/>
             <pointLight

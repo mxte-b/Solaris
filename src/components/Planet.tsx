@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { Vector3, TextureLoader, Texture } from "three";
+import { useState, useEffect, type RefObject } from "react";
+import { Vector3, TextureLoader, Texture, Mesh } from "three";
+import { useGlobals } from "../ts/globals";
 
 /**
  * Props for the Planet component.
@@ -9,8 +10,11 @@ import { Vector3, TextureLoader, Texture } from "three";
  * @property texturePath - Optional path to a texture image for the planet surface.
  */
 type PlanetProps = {
-  position?: Vector3;
-  radius?: number;
+  positionRef: RefObject<Mesh | null>;
+  name: string;
+  id: number;
+  position: Vector3;
+  radius: number;
   color?: string;
   texturePath?: string | null;
 };
@@ -20,12 +24,18 @@ type PlanetProps = {
  * Optionally applies a texture to the planet's surface.
  */
 const Planet = ({
+  positionRef,
+  name,
+  id,
   position = new Vector3(1, 0, 0),
   radius = 1,
   color = "white",
   texturePath = null,
 }: PlanetProps) => {
+
   const [texture, setTexture] = useState<Texture | null>(null);
+  const [hovered, setHovered] = useState<boolean>(false);
+  const setSelectedPlanet = useGlobals(state => state.setSelectedPlanet);
 
   useEffect(() => {
     if (texturePath) {
@@ -37,15 +47,21 @@ const Planet = ({
   }, [texturePath]);
 
   return (
-    <group position={position}>
-      <mesh castShadow receiveShadow>
-        <sphereGeometry args={[radius, 32, 32]} />
-        <meshStandardMaterial
-          color={color}
-          {...(texture ? { map: texture } : {})}
-        />
-      </mesh>
-    </group>
+    <mesh 
+      ref={positionRef}
+      position={position}
+      onPointerEnter={() => setHovered(true)}
+      onPointerOut={() => setHovered(false)}
+      onClick={() => setSelectedPlanet(id)}
+      castShadow 
+      receiveShadow
+    >
+      <sphereGeometry args={[radius, 32, 32]} />
+      <meshStandardMaterial
+        color={hovered ? "red" : color}
+        {...(texture ? { map: texture } : {})}
+      />
+    </mesh>
   );
 };
 
