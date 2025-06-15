@@ -10,6 +10,11 @@
     z-index: 100;
 }
 
+:root {
+    --text-primary: white;
+    --text-secondary: #c5c5c5
+}
+
 .navbar {
     width: 100%;
     display: flex;
@@ -30,7 +35,7 @@
 }
 
 .gradient {
-    background: linear-gradient(to bottom, white, grey);
+    background: linear-gradient(to bottom, var(--text-primary), grey);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -53,13 +58,14 @@
     text-transform: uppercase;
     letter-spacing: normal;
     padding-top: 0.8rem;
-    color: rgb(197, 197, 197);
+    color: var(--text-secondary);
 }
 
-.footer {
-    position: absolute;
-    padding: 1rem 2rem;
-    bottom: 0;
+.credits {
+    text-transform: uppercase;
+    letter-spacing: normal;
+    font-family: 'JetBrains Mono';
+    color: var(--text-secondary);
 }
 
 div:has(.loader) {

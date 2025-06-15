@@ -198,5 +198,27 @@
         "color": "#366896"
       }
     }
+  ],
+  "orbits": [
+    { "id": 2,   "radius": 194.61,   "offset": 0.00, "speed": 0.047 },
+    { "id": 3,   "radius": 359.28,   "offset": 0.50, "speed": 0.035 },
+    { "id": 4,   "radius": 499.00,   "offset": 1.00, "speed": 0.030 },
+    { "id": 401, "radius":   1.282,  "offset": 1.10, "speed": 0.150 },
+    { "id": 5,   "radius": 758.48,   "offset": 1.50, "speed": 0.024 },
+    { "id": 501, "radius":   0.032,  "offset": 1.60, "speed": 0.120 },
+    { "id": 502, "radius":   0.078,  "offset": 1.40, "speed": 0.120 },
+    { "id": 6,   "radius": 2594.80,  "offset": 2.00, "speed": 0.013 },
+    { "id": 601, "radius":   1.375,  "offset": 2.10, "speed": 0.065 },
+    { "id": 602, "radius":   2.191,  "offset": 2.20, "speed": 0.065 },
+    { "id": 603, "radius":   3.495,  "offset": 1.90, "speed": 0.065 },
+    { "id": 604, "radius":   6.129,  "offset": 2.30, "speed": 0.065 },
+    { "id": 7,   "radius": 4780.42,  "offset": 2.50, "speed": 0.009 },
+    { "id": 701, "radius":   3.940,  "offset": 2.60, "speed": 0.045 },
+    { "id": 702, "radius":   0.757,  "offset": 2.40, "speed": 0.045 },
+    { "id": 8,   "radius": 9570.82,  "offset": 3.00, "speed": 0.006 },
+    { "id": 801, "radius":   1.442,  "offset": 3.10, "speed": 0.030 },
+    { "id": 802, "radius":   1.951,  "offset": 2.90, "speed": 0.030 },
+    { "id": 9,   "radius": 15004.93, "offset": 3.50, "speed": 0.005 },
+    { "id": 901, "radius":   1.177,  "offset": 3.60, "speed": 0.025 }
   ]
 }

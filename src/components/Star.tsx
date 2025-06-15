@@ -3,7 +3,14 @@ import { Vector3, TextureLoader } from "three";
 import { useLoader } from '@react-three/fiber'
 import { useMemo } from "react";
 
-
+/**
+ * Props for the Star component.
+ * @property position - The position of the star in 3D space.
+ * @property radius - The radius of the star.
+ * @property color - The emissive color of the star's surface.
+ * @property lightColor - The color of the point light emitted by the star.
+ * @property texturePath - Optional path to a texture image for the star's surface.
+ */
 type StarProps = {
   position?: Vector3
   radius?: number
@@ -12,6 +19,10 @@ type StarProps = {
   texturePath?: string | null
 }
 
+/**
+ * Star component renders a glowing sphere with an optional texture and a point light.
+ * Used to represent stars in the solar system.
+ */
 const Star = ({
     position = new Vector3(1, 0, 0),
     radius = 1,

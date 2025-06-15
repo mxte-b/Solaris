@@ -1,5 +1,8 @@
 import "../css/HUD.css"
 
+/**
+ * HUD (Heads-Up Display) component renders the navigation bar and branding for the application.
+ */
 const HUD = () => {
     return (
         <div style={{ width: "100%", height: "100vh"}}>
@@ -9,10 +12,9 @@ const HUD = () => {
                     <h1 className="title gradient">S0LARIS</h1>
                     <h5 className="description">Explore the Solar System</h5>
                 </div>
-            </div>
-
-            <div className="footer">
-                Made by mxte_b
+                <h5 className="credits">
+                    Made by mxte_b with ❤︎
+                </h5>
             </div>
         </div>
     );

@@ -1,7 +1,10 @@
+// Main application entry point for the Solaris project.
+// Sets up the 3D canvas, postprocessing effects, and loads the solar system scene.
+
 import "./css/App.css"
 
 import { Canvas } from "@react-three/fiber"
-import { OrbitControls, Environment, Loader} from '@react-three/drei'
+import { OrbitControls, Environment } from '@react-three/drei'
 import { Bloom, Noise, Vignette, DepthOfField, EffectComposer } from "@react-three/postprocessing"
 
 import systemData from "./assets/system.json"
@@ -11,13 +14,12 @@ import HUD from "./components/HUD"
 import LoadBroadcaster from "./components/LoadBroadcaster"
 import LoadingScreen from "./components/LoadingScreen"
 
+/**
+ * App component sets up the main UI, loading screen, HUD, and 3D scene.
+ * It loads the solar system data and renders the 3D environment with postprocessing effects.
+ */
 function App() {
   const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    console.log(systemData)
-  }, [])
-
 
   return (
     <>
@@ -25,7 +27,7 @@ function App() {
       <HUD/>
       <Canvas className="canvas" shadows camera={{ position: [-100, 100, 0], fov:30, far: 100000 }} style={{ backgroundColor: "black", position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh" }}>
         <Suspense fallback={<LoadBroadcaster onProgress={setProgress} />}>
-          <SolarSystem data={systemData}/>
+          <SolarSystem system={systemData}/>
           <Environment background backgroundIntensity={0.2} environmentIntensity={0.1} files={[
             'src/assets/skybox/px.jpg',
             'src/assets/skybox/nx.jpg',
