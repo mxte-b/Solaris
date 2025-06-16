@@ -101,7 +101,9 @@ div:has(.loader) {
     pointer-events: none;
     transition: scale 0.3s ease;
     mix-blend-mode: difference;
+    will-change: transform;
 }
+
 
 .planet-indicator::before,
 .planet-indicator::after {
@@ -129,6 +131,19 @@ div:has(.loader) {
     background-size: 2px 5px, 2px 5px, 2px 5px, 2px 5px;
 }
 
+
+.planet-name {
+    position: absolute;
+    top: -15px;
+    min-width: max-content;
+    left: calc(50% + 3px);
+    transform: translate(-50%, -50%);
+    font-size: 12px;
+    letter-spacing: 5px;
+    color: var(--hud-color);
+    font-family: 'JetBrains Mono';
+    text-transform: uppercase;
+}
 
 @keyframes fadein {
     to {
