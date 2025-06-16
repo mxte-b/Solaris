@@ -21,7 +21,7 @@ const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
             </div>
             <div className="hud">
                 {pairsRef.current.map((pair, i) => (
-                    <div key={i} ref={pair.domRef} className="planet-indicator">
+                    <div key={i} ref={pair.domRef} className={"planet-indicator" + ((pair.id > 100) ? " moon" : "")}>
                         <div className="planet-name">{pair.name}</div>
                     </div>
                 ))}

@@ -104,7 +104,6 @@ div:has(.loader) {
     will-change: transform;
 }
 
-
 .planet-indicator::before,
 .planet-indicator::after {
     content: "";

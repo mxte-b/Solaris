@@ -17,10 +17,10 @@ export const useGlobals = create<GlobalValues>(set => ({
     selectedPlanet: null,
     setSelectedPlanet: (planet : number) => set({ selectedPlanet: planet }),
 
-    distanceScale: 2,
+    distanceScale: 5,
     setDistanceScale: (scale : number) => set({ distanceScale: scale }),
 
-    planetScale: 10,
+    planetScale: 100,
     setPlanetScale: (scale : number) => set({ planetScale: scale }),
 }));
 
@@ -49,6 +49,8 @@ export type Moon = {
     id: number;
     type: string;
     planetDistanceLS: number;
+    radius: number;
+    visual: Visual;
 };
 
 /**

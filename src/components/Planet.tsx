@@ -10,13 +10,13 @@ import { useGlobals } from "../ts/globals";
  * @property texturePath - Optional path to a texture image for the planet surface.
  */
 type PlanetProps = {
-  positionRef: RefObject<Mesh | null>;
-  name: string;
-  id: number;
-  position: Vector3;
-  radius: number;
-  color?: string;
-  texturePath?: string | null;
+    positionRef: RefObject<Mesh | null>;
+    name: string;
+    id: number;
+    position: Vector3;
+    radius: number;
+    texturePath: string;
+    color?: string;
 };
 
 /**
@@ -24,45 +24,46 @@ type PlanetProps = {
  * Optionally applies a texture to the planet's surface.
  */
 const Planet = ({
-  positionRef,
-  name,
-  id,
-  position = new Vector3(1, 0, 0),
-  radius = 1,
-  color = "white",
-  texturePath = null,
+    positionRef,
+    name,
+    id,
+    position = new Vector3(1, 0, 0),
+    radius = 1,
+    texturePath,
+    color = "white",
 }: PlanetProps) => {
 
-  const [texture, setTexture] = useState<Texture | null>(null);
-  const [hovered, setHovered] = useState<boolean>(false);
-  const setSelectedPlanet = useGlobals(state => state.setSelectedPlanet);
+    const [texture, setTexture] = useState<Texture | null>(null);
+    const [hovered, setHovered] = useState<boolean>(false);
+    
+    const setSelectedPlanet = useGlobals(state => state.setSelectedPlanet);
 
-  useEffect(() => {
-    if (texturePath) {
-      const loader = new TextureLoader();
-      loader.load(texturePath, (loadedTexture) => {
-        setTexture(loadedTexture);
-      });
-    }
-  }, [texturePath]);
+    useEffect(() => {
+        if (texturePath) {
+            const loader = new TextureLoader();
+            loader.load(texturePath, (loadedTexture) => {
+                setTexture(loadedTexture);
+            });
+        }
+    }, [texturePath]);
 
-  return (
-    <mesh 
-      ref={positionRef}
-      position={position}
-      onPointerEnter={() => setHovered(true)}
-      onPointerOut={() => setHovered(false)}
-      onClick={() => setSelectedPlanet(id)}
-      castShadow 
-      receiveShadow
-    >
-      <sphereGeometry args={[radius, 32, 32]} />
-      <meshStandardMaterial
-        color={hovered ? "red" : color}
-        {...(texture ? { map: texture } : {})}
-      />
-    </mesh>
-  );
+    return texture && (
+        <mesh 
+            ref={positionRef}
+            position={position}
+            onPointerEnter={() => setHovered(true)}
+            onPointerOut={() => setHovered(false)}
+            onClick={() => setSelectedPlanet(id)}
+            castShadow 
+            receiveShadow
+        >
+            <sphereGeometry args={[radius, 32, 32]} />
+            <meshStandardMaterial
+                color={hovered ? "red" : color}
+                {...(texture ? { map: texture } : {})}
+            />
+        </mesh>
+    );
 };
 
 export default Planet;

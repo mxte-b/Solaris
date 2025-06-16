@@ -5,6 +5,7 @@ import { Fragment, Suspense} from "react";
 import { useGlobals, type RefPair, type SolarSystemProps } from "../ts/globals";
 import Orbit from "./Orbit";
 import { useFrame, useThree } from "@react-three/fiber";
+import Helpers from "./Helpers";
 
 const tmpWorld = new Vector3()
 const tmpSSC = new Vector2()
@@ -20,7 +21,7 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
     const RADIUS_SCALE = useGlobals(state => state.planetScale);
     const { camera, size } = useThree();
 
-    const logScaled = (x: number) => Math.max(Math.log(x + 1) * RADIUS_SCALE, 0.5); 
+    const logScaled = (x: number) => Math.min(Math.max(Math.log(x + 1) * RADIUS_SCALE, 0.2), 10); 
 
     // Project world positions to screen space each frame with linear extrapolation
     useFrame(() => {
@@ -60,19 +61,21 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
         });
     });
 
+    let refIndex = 0;
+
     return (
 		<Suspense fallback={null}>
 			{system.bodies.map((b, i) => {
-				const { meshRef, domRef } = pairsRef.current[i]
+				const { meshRef, domRef } = pairsRef.current[refIndex++];
 
                 const common = {
                     positionRef: meshRef,
-                    radius: logScaled(b.radius),
+                    radius: logScaled(Helpers.ER2LS(b.radius)),
                     position: new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE),
                     texturePath: b.visual.texture,
                 }
 
-				 return (
+				return (
                     <Fragment key={b.id}>
                         { b.type === "Star"
                         ?
@@ -85,6 +88,30 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
                                 color="#B57F12"
                                 radius={system.orbits.find(o => o.id === b.id)!.radius}
                                 />
+
+                                {/* Rendering the moons*/}
+                                {b.moons?.map((m, mi) => {
+                                    const { meshRef, domRef } = pairsRef.current[refIndex++];
+
+                                    return (
+                                        <Fragment key={mi+"-moon"}>
+                                            <Planet 
+                                                color="white"
+                                                name={m.name}
+                                                id={m.id}
+                                                positionRef={meshRef} 
+                                                radius={logScaled(Helpers.ER2LS(m.radius))}
+                                                position={new Vector3(0, 0, (b.distanceLS + m.planetDistanceLS * RADIUS_SCALE) / DISTANCE_SCALE )}
+                                                texturePath={m.visual.texture}
+                                            />
+                                            <Orbit
+                                            center={new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE * 2)}
+                                            color="#B57F12"
+                                            radius={system.orbits.find(o => o.id === m.id)!.radius * RADIUS_SCALE }
+                                            />
+                                        </Fragment>
+                                    )
+                                })}
                             </>
                         }
                     </Fragment>

@@ -47,7 +47,7 @@
           "name": "Moon",
           "id": 401,
           "type": "Moon",
-          "planetDistanceLS": 0.3,
+          "planetDistanceLS": 1.282,
           "radius": 0.273,
           "visual": {
             "texture": "src/assets/textures/moon.jpg",
@@ -71,7 +71,7 @@
           "name": "Phobos",
           "id": 501,
           "type": "Moon",
-          "planetDistanceLS": 0.062,
+          "planetDistanceLS": 0.032,
           "radius": 0.002,
           "visual": {
             "texture": "src/assets/textures/phobos.jpg",
@@ -82,7 +82,7 @@
           "name": "Deimos",
           "id": 502,
           "type": "Moon",
-          "planetDistanceLS": 0.108,
+          "planetDistanceLS": 0.078,
           "radius": 0.001,
           "visual": {
             "texture": "src/assets/textures/deimos.jpg",
@@ -106,7 +106,7 @@
           "name": "Io",
           "id": 601,
           "type": "Moon",
-          "planetDistanceLS": 0.600,
+          "planetDistanceLS": 1.375,
           "radius": 0.286,
           "visual": {
             "texture": "src/assets/textures/io.jpg",
@@ -117,7 +117,7 @@
           "name": "Europa",
           "id": 602,
           "type": "Moon",
-          "planetDistanceLS": 1.230,
+          "planetDistanceLS": 2.191,
           "radius": 0.245,
           "visual": {
             "texture": "src/assets/textures/europa.jpg",
@@ -128,7 +128,7 @@
           "name": "Ganymede",
           "id": 603,
           "type": "Moon",
-          "planetDistanceLS": 1.764,
+          "planetDistanceLS": 3.495,
           "radius": 0.413,
           "visual": {
             "texture": "src/assets/textures/ganymede.jpg",
@@ -139,7 +139,7 @@
           "name": "Callisto",
           "id": 604,
           "type": "Moon",
-          "planetDistanceLS": 2.954,
+          "planetDistanceLS": 6.129,
           "radius": 0.379,
           "visual": {
             "texture": "src/assets/textures/callisto.jpg",
@@ -163,7 +163,7 @@
           "name": "Titan",
           "id": 701,
           "type": "Moon",
-          "planetDistanceLS": 1.976,
+          "planetDistanceLS": 3.940,
           "radius": 0.404,
           "visual": {
             "texture": "src/assets/textures/titan.jpg",
@@ -174,7 +174,7 @@
           "name": "Enceladus",
           "id": 702,
           "type": "Moon",
-          "planetDistanceLS": 0.658,
+          "planetDistanceLS": 0.757,
           "radius": 0.040,
           "visual": {
             "texture": "src/assets/textures/enceladus.jpg",
@@ -198,7 +198,7 @@
           "name": "Titania",
           "id": 801,
           "type": "Moon",
-          "planetDistanceLS": 0.768,
+          "planetDistanceLS": 1.442,
           "radius": 0.124,
           "visual": {
             "texture": "src/assets/textures/titania.jpg",
@@ -209,7 +209,7 @@
           "name": "Oberon",
           "id": 802,
           "type": "Moon",
-          "planetDistanceLS": 0.998,
+          "planetDistanceLS": 1.951,
           "radius": 0.120,
           "visual": {
             "texture": "src/assets/textures/oberon.jpg",
@@ -233,7 +233,7 @@
           "name": "Triton",
           "id": 901,
           "type": "Moon",
-          "planetDistanceLS": 0.701,
+          "planetDistanceLS": 1.177,
           "radius": 0.212,
           "visual": {
             "texture": "src/assets/textures/triton.jpg",
@@ -251,22 +251,22 @@
     { "id": 2,   "radius": 194.61,   "offset": 0.00, "speed": 0.047 },
     { "id": 3,   "radius": 359.28,   "offset": 0.50, "speed": 0.035 },
     { "id": 4,   "radius": 499.00,   "offset": 1.00, "speed": 0.030 },
-    { "id": 401, "radius":   0.300,  "offset": 1.10, "speed": 0.150 },
+    { "id": 401, "radius":   1.282,  "offset": 1.10, "speed": 0.150 },
     { "id": 5,   "radius": 758.48,   "offset": 1.50, "speed": 0.024 },
-    { "id": 501, "radius":   0.062,  "offset": 1.60, "speed": 0.120 },
-    { "id": 502, "radius":   0.108,  "offset": 1.40, "speed": 0.120 },
+    { "id": 501, "radius":   0.032,  "offset": 1.60, "speed": 0.120 },
+    { "id": 502, "radius":   0.078,  "offset": 1.40, "speed": 0.120 },
     { "id": 6,   "radius": 2594.80,  "offset": 2.00, "speed": 0.013 },
-    { "id": 601, "radius":   0.600,  "offset": 2.10, "speed": 0.065 },
-    { "id": 602, "radius":   1.230,  "offset": 2.20, "speed": 0.065 },
-    { "id": 603, "radius":   1.764,  "offset": 1.90, "speed": 0.065 },
-    { "id": 604, "radius":   2.954,  "offset": 2.30, "speed": 0.065 },
+    { "id": 601, "radius":   1.375,  "offset": 2.10, "speed": 0.065 },
+    { "id": 602, "radius":   2.191,  "offset": 2.20, "speed": 0.065 },
+    { "id": 603, "radius":   3.495,  "offset": 1.90, "speed": 0.065 },
+    { "id": 604, "radius":   6.129,  "offset": 2.30, "speed": 0.065 },
     { "id": 7,   "radius": 4780.42,  "offset": 2.50, "speed": 0.009 },
-    { "id": 701, "radius":   1.976,  "offset": 2.60, "speed": 0.045 },
-    { "id": 702, "radius":   0.658,  "offset": 2.40, "speed": 0.045 },
+    { "id": 701, "radius":   3.940,  "offset": 2.60, "speed": 0.045 },
+    { "id": 702, "radius":   0.757,  "offset": 2.40, "speed": 0.045 },
     { "id": 8,   "radius": 9570.82,  "offset": 3.00, "speed": 0.006 },
-    { "id": 801, "radius":   0.768,  "offset": 3.10, "speed": 0.030 },
-    { "id": 802, "radius":   0.998,  "offset": 2.90, "speed": 0.030 },
+    { "id": 801, "radius":   1.442,  "offset": 3.10, "speed": 0.030 },
+    { "id": 802, "radius":   1.951,  "offset": 2.90, "speed": 0.030 },
     { "id": 9,   "radius": 15004.93, "offset": 3.50, "speed": 0.005 },
-    { "id": 901, "radius":   0.701,  "offset": 3.60, "speed": 0.025 }
+    { "id": 901, "radius":   1.177,  "offset": 3.60, "speed": 0.025 }
   ]
 }
