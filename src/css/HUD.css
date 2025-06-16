@@ -99,13 +99,33 @@ div:has(.loader) {
     height: 40px;
     user-select: none;
     pointer-events: none;
-    transition: scale 0.3s ease;
     mix-blend-mode: difference;
     will-change: transform;
 }
 
-.planet-indicator::before,
-.planet-indicator::after {
+.planet-selection { 
+    top: 0;
+    left: 0;
+    position: absolute;
+    z-index: 9999;
+    width: 40px;
+    height: 40px;
+    user-select: none;
+    pointer-events: none;
+    transition: scale 0.2s ease;
+    will-change: scale;
+}
+
+.planet-indicator.hover > .planet-selection {
+    scale: 1.1;
+}
+
+.planet-indicator.active > .planet-selection {
+    scale: 0.8;
+}
+
+.planet-selection::before,
+.planet-selection::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -120,7 +140,7 @@ div:has(.loader) {
     background-size: 5px 2px, 5px 2px, 5px 2px, 5px 2px;
 }
 
-.planet-indicator::after {
+.planet-selection::after {
     background: 
         linear-gradient(to bottom, var(--hud-color) 5px, transparent 5px) top left,
         linear-gradient(to bottom, var(--hud-color) 5px, transparent 5px) top right,

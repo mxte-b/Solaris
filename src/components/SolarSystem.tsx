@@ -1,8 +1,8 @@
 import Star from "./Star";
-import { Vector2, Vector3 } from "three";
+import { Mesh, Vector2, Vector3 } from "three";
 import Planet from "./Planet";
-import { Fragment, Suspense} from "react";
-import { useGlobals, type RefPair, type SolarSystemProps } from "../ts/globals";
+import { Fragment, Suspense, type RefObject} from "react";
+import { useGlobals, type PointerEvents, type RefPair, type SolarSystemProps } from "../ts/globals";
 import Orbit from "./Orbit";
 import { useFrame, useThree } from "@react-three/fiber";
 import Helpers from "./Helpers";
@@ -20,8 +20,11 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
     const DISTANCE_SCALE = useGlobals(state => state.distanceScale);
     const RADIUS_SCALE = useGlobals(state => state.planetScale);
     const { camera, size } = useThree();
-
+    
     const logScaled = (x: number) => Math.min(Math.max(Math.log(x + 1) * RADIUS_SCALE, 0.2), 10); 
+
+    // Setters
+    const setSelectedPlanet = useGlobals(state => state.setSelectedPlanet);
 
     // Project world positions to screen space each frame with linear extrapolation
     useFrame(() => {
@@ -59,21 +62,32 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
 
             div.style.transform = `translate3d(${tmpSSC.x - 20}px, ${tmpSSC.y - 20}px, 0)`;
         });
-    });
+    }, 2);
 
     let refIndex = 0;
 
     return (
 		<Suspense fallback={null}>
 			{system.bodies.map((b, i) => {
-				const { meshRef, domRef } = pairsRef.current[refIndex++];
+				const planetRef = pairsRef.current[refIndex++];
+                const { meshRef, domRef } = planetRef;
+
+                const eventHandler : PointerEvents = {
+                    onPointerEnter: Helpers.CreateHoverHandler(domRef, "add"),
+                    onPointerOut: Helpers.CreateHoverHandler(domRef, "remove"),
+                    onPointerDown: Helpers.CreateActiveHandler(domRef, "add"),
+                    onPointerUp: Helpers.CreateActiveHandler(domRef, "remove"),
+                    onClick: () => setSelectedPlanet(planetRef)
+                }
 
                 const common = {
-                    positionRef: meshRef,
+                    meshRef: meshRef,
                     radius: logScaled(Helpers.ER2LS(b.radius)),
                     position: new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE),
                     texturePath: b.visual.texture,
+                    pointerEvents: eventHandler
                 }
+
 
 				return (
                     <Fragment key={b.id}>
@@ -84,30 +98,40 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
                             <>
                                 <Planet {...common} color="white" name={b.name} id={b.id} />
                                 <Orbit
-                                center={new Vector3(0, 0, 0)}
-                                color="#B57F12"
-                                radius={system.orbits.find(o => o.id === b.id)!.radius}
+                                    center={new Vector3(0, 0, 0)}
+                                    color="#B57F12"
+                                    radius={system.orbits.find(o => o.id === b.id)!.radius}
                                 />
 
                                 {/* Rendering the moons*/}
                                 {b.moons?.map((m, mi) => {
-                                    const { meshRef, domRef } = pairsRef.current[refIndex++];
+                                    const planetRef = pairsRef.current[refIndex++];
+                                    const { meshRef, domRef } = planetRef;
+
+                                    const eventHandler : PointerEvents = {
+                                        onPointerEnter: Helpers.CreateHoverHandler(domRef, "add"),
+                                        onPointerOut: Helpers.CreateHoverHandler(domRef, "remove"),
+                                        onPointerDown: Helpers.CreateActiveHandler(domRef, "add"),
+                                        onPointerUp: Helpers.CreateActiveHandler(domRef, "remove"),
+                                        onClick: () => setSelectedPlanet(planetRef)
+                                    }
 
                                     return (
                                         <Fragment key={mi+"-moon"}>
                                             <Planet 
-                                                color="white"
-                                                name={m.name}
                                                 id={m.id}
-                                                positionRef={meshRef} 
+                                                name={m.name}
+                                                color="white"
+                                                meshRef={meshRef}
+                                                pointerEvents={eventHandler}
+                                                texturePath={m.visual.texture}
                                                 radius={logScaled(Helpers.ER2LS(m.radius))}
                                                 position={new Vector3(0, 0, (b.distanceLS + m.planetDistanceLS * RADIUS_SCALE) / DISTANCE_SCALE )}
-                                                texturePath={m.visual.texture}
                                             />
                                             <Orbit
-                                            center={new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE * 2)}
-                                            color="#B57F12"
-                                            radius={system.orbits.find(o => o.id === m.id)!.radius * RADIUS_SCALE }
+                                                center={new Vector3(0, 0, b.distanceLS / DISTANCE_SCALE * 2)}
+                                                color="#B57F12"
+                                                radius={system.orbits.find(o => o.id === m.id)!.radius * RADIUS_SCALE }
                                             />
                                         </Fragment>
                                     )

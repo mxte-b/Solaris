@@ -1,6 +1,6 @@
 import { useState, useEffect, type RefObject } from "react";
 import { Vector3, TextureLoader, Texture, Mesh } from "three";
-import { useGlobals } from "../ts/globals";
+import { useGlobals, type PointerEvents } from "../ts/globals";
 
 /**
  * Props for the Planet component.
@@ -10,13 +10,16 @@ import { useGlobals } from "../ts/globals";
  * @property texturePath - Optional path to a texture image for the planet surface.
  */
 type PlanetProps = {
-    positionRef: RefObject<Mesh | null>;
+    meshRef: RefObject<Mesh | null>;
     name: string;
     id: number;
     position: Vector3;
     radius: number;
     texturePath: string;
     color?: string;
+
+    // Event handlers
+    pointerEvents: PointerEvents
 };
 
 /**
@@ -24,19 +27,17 @@ type PlanetProps = {
  * Optionally applies a texture to the planet's surface.
  */
 const Planet = ({
-    positionRef,
     name,
     id,
-    position = new Vector3(1, 0, 0),
-    radius = 1,
     texturePath,
+    pointerEvents,
+    radius = 1,
     color = "white",
+    meshRef: meshRef,
+    position = new Vector3(1, 0, 0),
 }: PlanetProps) => {
 
     const [texture, setTexture] = useState<Texture | null>(null);
-    const [hovered, setHovered] = useState<boolean>(false);
-    
-    const setSelectedPlanet = useGlobals(state => state.setSelectedPlanet);
 
     useEffect(() => {
         if (texturePath) {
@@ -49,17 +50,19 @@ const Planet = ({
 
     return texture && (
         <mesh 
-            ref={positionRef}
+            ref={meshRef}
             position={position}
-            onPointerEnter={() => setHovered(true)}
-            onPointerOut={() => setHovered(false)}
-            onClick={() => setSelectedPlanet(id)}
+            onPointerEnter={pointerEvents.onPointerEnter}
+            onPointerOut={pointerEvents.onPointerOut}
+            onPointerDown={pointerEvents.onPointerDown}
+            onPointerUp={pointerEvents.onPointerUp}
+            onClick={pointerEvents.onClick}
             castShadow 
             receiveShadow
         >
             <sphereGeometry args={[radius, 32, 32]} />
             <meshStandardMaterial
-                color={hovered ? "red" : color}
+                color={color}
                 {...(texture ? { map: texture } : {})}
             />
         </mesh>

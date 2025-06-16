@@ -1,17 +1,19 @@
 import "./css/App.css"
 
-import { Canvas } from "@react-three/fiber"
+import { Canvas, useFrame } from "@react-three/fiber"
 import { OrbitControls, Environment } from '@react-three/drei'
 import { Bloom, Noise, Vignette, DepthOfField, EffectComposer } from "@react-three/postprocessing"
 
 import systemData from "./assets/system.json"
 import SolarSystem from "./components/SolarSystem"
-import { createRef, Suspense, useRef, useState } from "react"
+import { createRef, Suspense, useEffect, useRef, useState } from "react"
 import HUD from "./components/HUD"
 import LoadBroadcaster from "./components/LoadBroadcaster"
 import LoadingScreen from "./components/LoadingScreen"
 import { Mesh } from "three"
-import type { RefPair } from "./ts/globals"
+import { useGlobals, type RefPair } from "./ts/globals"
+import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
+import CameraTargetController from "./components/CameraTargetController"
 
 /**
  * App component sets up the main UI, loading screen, HUD, and 3D scene.
@@ -19,6 +21,9 @@ import type { RefPair } from "./ts/globals"
  */
 function App() {
     const [progress, setProgress] = useState(0);
+
+    const selectedPlanet = useGlobals(state => state.selectedPlanet);
+    const orbitControlsRef = useRef<OrbitControlsImpl>(null);
 
     const pairsRef = useRef<RefPair[]>(
         systemData.bodies.flatMap((b) => [
@@ -37,7 +42,7 @@ function App() {
                 domRef:  createRef<HTMLDivElement>(),
             }))
         ])
-    )
+    );
 
     return (
         <>
@@ -57,8 +62,9 @@ function App() {
                     ]}/>
                 </Suspense>
 
-                <OrbitControls enableDamping={false} dampingFactor={0.05} rotateSpeed={0.5} enablePan={false}/>
-                    <EffectComposer>
+                <OrbitControls ref={orbitControlsRef} enableDamping={true} dampingFactor={0.1} rotateSpeed={0.5} enablePan={false}/>
+                <CameraTargetController orbitControlsRef={orbitControlsRef} />
+                <EffectComposer>
                     <Bloom intensity={1.2} luminanceThreshold={0.5} opacity={0.2} />
                     <Noise opacity={0.05} />
                     <Vignette eskil={false} offset={0.1} darkness={1} />

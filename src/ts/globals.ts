@@ -3,8 +3,8 @@ import type { Mesh } from "three";
 import { create } from "zustand";
 
 type GlobalValues = {
-    selectedPlanet: number | null;
-    setSelectedPlanet: (planet: number) => void;
+    selectedPlanet: RefPair | null;
+    setSelectedPlanet: (planet: RefPair) => void;
     
     distanceScale: number;
     setDistanceScale: (scale: number) => void;
@@ -15,7 +15,7 @@ type GlobalValues = {
 
 export const useGlobals = create<GlobalValues>(set => ({
     selectedPlanet: null,
-    setSelectedPlanet: (planet : number) => set({ selectedPlanet: planet }),
+    setSelectedPlanet: (planet : RefPair) => set({ selectedPlanet: planet }),
 
     distanceScale: 5,
     setDistanceScale: (scale : number) => set({ distanceScale: scale }),
@@ -92,3 +92,14 @@ export type SolarSystemProps = {
     system: SolarSystemData;
     pairsRef: RefObject<RefPair[]>;
 };
+
+/**
+ * Props for the handling of pointer events
+ */
+export type PointerEvents = {
+    onPointerEnter?: (e: PointerEvent) => void;
+    onPointerOut?: (e: PointerEvent) => void;
+    onPointerDown?: (e: PointerEvent) => void;
+    onPointerUp?: (e: PointerEvent) => void;
+    onClick?: () => void;
+}
