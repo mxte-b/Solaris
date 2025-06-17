@@ -48,6 +48,13 @@ const Planet = ({
         }
     }, [texturePath]);
 
+    // Calculate the bounding sphere for this planet (used for camera targeting)
+    useEffect(() => {
+        if (texture && meshRef.current) {
+            meshRef.current.geometry.computeBoundingSphere();
+        }
+    }, [texture])
+
     return texture && (
         <mesh 
             ref={meshRef}

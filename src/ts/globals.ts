@@ -101,5 +101,5 @@ export type PointerEvents = {
     onPointerOut?: (e: PointerEvent) => void;
     onPointerDown?: (e: PointerEvent) => void;
     onPointerUp?: (e: PointerEvent) => void;
-    onClick?: () => void;
+    onClick?: (e: PointerEvent) => void;
 }

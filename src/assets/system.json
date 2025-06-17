@@ -71,7 +71,7 @@
           "name": "Phobos",
           "id": 501,
           "type": "Moon",
-          "planetDistanceLS": 0.062,
+          "planetDistanceLS": 0.088,
           "radius": 0.002,
           "visual": {
             "texture": "src/assets/textures/phobos.jpg",
@@ -82,7 +82,7 @@
           "name": "Deimos",
           "id": 502,
           "type": "Moon",
-          "planetDistanceLS": 0.108,
+          "planetDistanceLS": 0.138,
           "radius": 0.001,
           "visual": {
             "texture": "src/assets/textures/deimos.jpg",
@@ -253,8 +253,8 @@
     { "id": 4,   "radius": 499.00,   "offset": 1.00, "speed": 0.030 },
     { "id": 401, "radius":   0.300,  "offset": 1.10, "speed": 0.150 },
     { "id": 5,   "radius": 758.48,   "offset": 1.50, "speed": 0.024 },
-    { "id": 501, "radius":   0.062,  "offset": 1.60, "speed": 0.120 },
-    { "id": 502, "radius":   0.108,  "offset": 1.40, "speed": 0.120 },
+    { "id": 501, "radius":   0.088,  "offset": 1.60, "speed": 0.120 },
+    { "id": 502, "radius":   0.138,  "offset": 1.40, "speed": 0.120 },
     { "id": 6,   "radius": 2594.80,  "offset": 2.00, "speed": 0.013 },
     { "id": 601, "radius":   0.600,  "offset": 2.10, "speed": 0.065 },
     { "id": 602, "radius":   1.230,  "offset": 2.20, "speed": 0.065 },

@@ -1,16 +1,15 @@
 import Star from "./Star";
-import { Mesh, Vector2, Vector3 } from "three";
-import Planet from "./Planet";
-import { Fragment, Suspense, type RefObject} from "react";
-import { useGlobals, type PointerEvents, type RefPair, type SolarSystemProps } from "../ts/globals";
 import Orbit from "./Orbit";
-import { useFrame, useThree } from "@react-three/fiber";
+import Planet from "./Planet";
 import Helpers from "./Helpers";
+import { Vector2, Vector3 } from "three";
+import { useFrame, useThree } from "@react-three/fiber";
+import { Fragment, Suspense} from "react";
+import { useGlobals, type PointerEvents, type SolarSystemProps } from "../ts/globals";
 
 const tmpWorld = new Vector3()
 const tmpSSC = new Vector2()
 const tmpCam = new Vector3()
-
 
 /**
  * SolarSystem component renders all celestial bodies (stars and planets) in the system.
@@ -77,7 +76,7 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
                     onPointerOut: Helpers.CreateHoverHandler(domRef, "remove"),
                     onPointerDown: Helpers.CreateActiveHandler(domRef, "add"),
                     onPointerUp: Helpers.CreateActiveHandler(domRef, "remove"),
-                    onClick: () => setSelectedPlanet(planetRef)
+                    onClick: Helpers.CreateClickHandler(planetRef, setSelectedPlanet)
                 }
 
                 const common = {
@@ -113,7 +112,7 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
                                         onPointerOut: Helpers.CreateHoverHandler(domRef, "remove"),
                                         onPointerDown: Helpers.CreateActiveHandler(domRef, "add"),
                                         onPointerUp: Helpers.CreateActiveHandler(domRef, "remove"),
-                                        onClick: () => setSelectedPlanet(planetRef)
+                                        onClick: Helpers.CreateClickHandler(planetRef, setSelectedPlanet)
                                     }
 
                                     return (

@@ -1,11 +1,17 @@
 import "../css/HUD.css"
-import { type RefObject } from "react";
+import { useEffect, type RefObject } from "react";
 import type { RefPair } from "../ts/globals";
+import Helpers from "./Helpers";
 
 /**
  * HUD (Heads-Up Display) component renders the navigation bar and branding for the application.
  */
 const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
+
+    // Animate the default selected indicator
+    useEffect(() => {
+        Helpers.SelectIndicatorInstant(document.querySelector(".planet-indicator.selected") as HTMLDivElement);
+    }, [])
 
     return (
         <div style={{ width: "100%", height: "100vh"}}>
@@ -21,7 +27,7 @@ const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
             </div>
             <div className="hud">
                 {pairsRef.current.map((pair, i) => (
-                    <div key={i} ref={pair.domRef} className={"planet-indicator" + ((pair.id > 100) ? " moon" : "")}>
+                    <div key={i} ref={pair.domRef} className={"planet-indicator" + ((pair.id > 100) ? " moon" : "") + (i == 0 ? " selected" : "")}>
                         <div className="planet-name">{pair.name}</div>
                         <div className="planet-selection"/>
                     </div>

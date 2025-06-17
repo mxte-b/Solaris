@@ -1,6 +1,6 @@
-import { Line } from "@react-three/drei";
-import { useMemo, useRef } from "react";
 import { Color, Vector3 } from "three";
+import { useMemo, useRef } from "react";
+import { Line } from "@react-three/drei";
 import { useGlobals } from "../ts/globals";
 import { useFrame, useThree } from "@react-three/fiber";
 import type { Line2 } from "three/examples/jsm/Addons.js";

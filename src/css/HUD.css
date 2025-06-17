@@ -101,6 +101,7 @@ div:has(.loader) {
     pointer-events: none;
     mix-blend-mode: difference;
     will-change: transform;
+    --border-color: #ffbb29;
 }
 
 .planet-selection { 
@@ -114,14 +115,17 @@ div:has(.loader) {
     pointer-events: none;
     transition: scale 0.2s ease;
     will-change: scale;
+
+    --border-length-x: 5px;
+    --border-length-y: 5px;
 }
 
-.planet-indicator.hover > .planet-selection {
-    scale: 1.1;
+.planet-indicator:not(.selected).hover > .planet-selection {
+    scale: 1.1 !important;
 }
 
-.planet-indicator.active > .planet-selection {
-    scale: 0.8;
+.planet-indicator:not(.selected).active > .planet-selection {
+    scale: 0.9 !important;
 }
 
 .planet-selection::before,
@@ -132,22 +136,22 @@ div:has(.loader) {
     height: 100%;
     pointer-events: none;
     background: 
-        linear-gradient(to right, var(--hud-color) 5px, transparent 5px) top left,
-        linear-gradient(to left, var(--hud-color) 5px, transparent 5px) top right,
-        linear-gradient(to right, var(--hud-color) 5px, transparent 5px) bottom left,
-        linear-gradient(to left, var(--hud-color) 5px, transparent 5px) bottom right;
+        linear-gradient(to right, var(--border-color) var(--border-length-x), transparent var(--border-length-x)) top left,
+        linear-gradient(to left, var(--border-color) var(--border-length-x), transparent var(--border-length-x)) top right,
+        linear-gradient(to right, var(--border-color) var(--border-length-x), transparent var(--border-length-x)) bottom left,
+        linear-gradient(to left, var(--border-color) var(--border-length-x), transparent var(--border-length-x)) bottom right;
     background-repeat: no-repeat;
-    background-size: 5px 2px, 5px 2px, 5px 2px, 5px 2px;
+    background-size: var(--border-length-x) 2px, var(--border-length-x) 2px, var(--border-length-x) 2px, var(--border-length-x) 2px;
 }
 
 .planet-selection::after {
     background: 
-        linear-gradient(to bottom, var(--hud-color) 5px, transparent 5px) top left,
-        linear-gradient(to bottom, var(--hud-color) 5px, transparent 5px) top right,
-        linear-gradient(to top, var(--hud-color) 5px, transparent 5px) bottom left,
-        linear-gradient(to top, var(--hud-color) 5px, transparent 5px) bottom right;
+        linear-gradient(to bottom, var(--border-color) var(--border-length-y), transparent var(--border-length-y)) top left,
+        linear-gradient(to bottom, var(--border-color) var(--border-length-y), transparent var(--border-length-y)) top right,
+        linear-gradient(to top, var(--border-color) var(--border-length-y), transparent var(--border-length-y)) bottom left,
+        linear-gradient(to top, var(--border-color) var(--border-length-y), transparent var(--border-length-y)) bottom right;
     background-repeat: no-repeat;
-    background-size: 2px 5px, 2px 5px, 2px 5px, 2px 5px;
+    background-size: 2px var(--border-length-y), 2px var(--border-length-y), 2px var(--border-length-y), 2px var(--border-length-x);
 }
 
 
@@ -159,7 +163,7 @@ div:has(.loader) {
     transform: translate(-50%, -50%);
     font-size: 12px;
     letter-spacing: 5px;
-    color: var(--hud-color);
+    color: var(--border-color);
     font-family: 'JetBrains Mono';
     text-transform: uppercase;
 }

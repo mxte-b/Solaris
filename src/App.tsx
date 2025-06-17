@@ -1,18 +1,18 @@
 import "./css/App.css"
 
-import { Canvas, useFrame } from "@react-three/fiber"
-import { OrbitControls, Environment } from '@react-three/drei'
-import { Bloom, Noise, Vignette, DepthOfField, EffectComposer } from "@react-three/postprocessing"
+import { Mesh } from "three"
+import { Canvas } from "@react-three/fiber"
+import { createRef, Suspense, useRef, useState } from "react"
+import { OrbitControls, Environment } from "@react-three/drei"
+import { OrbitControls as OrbitControlsImpl } from "three-stdlib";
+import { Bloom, Noise, Vignette, EffectComposer } from "@react-three/postprocessing"
 
+import HUD from "./components/HUD"
 import systemData from "./assets/system.json"
 import SolarSystem from "./components/SolarSystem"
-import { createRef, Suspense, useEffect, useRef, useState } from "react"
-import HUD from "./components/HUD"
-import LoadBroadcaster from "./components/LoadBroadcaster"
 import LoadingScreen from "./components/LoadingScreen"
-import { Mesh } from "three"
 import { useGlobals, type RefPair } from "./ts/globals"
-import { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
+import LoadBroadcaster from "./components/LoadBroadcaster"
 import CameraTargetController from "./components/CameraTargetController"
 
 /**
@@ -22,7 +22,6 @@ import CameraTargetController from "./components/CameraTargetController"
 function App() {
     const [progress, setProgress] = useState(0);
 
-    const selectedPlanet = useGlobals(state => state.selectedPlanet);
     const orbitControlsRef = useRef<OrbitControlsImpl>(null);
 
     const pairsRef = useRef<RefPair[]>(
@@ -49,16 +48,19 @@ function App() {
             <LoadingScreen progress={progress} />
             <HUD pairsRef={pairsRef}/>
 
-            <Canvas className="canvas" shadows camera={{ position: [-100, 100, 0], fov:30, far: 100000 }} style={{ backgroundColor: "black", position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh" }}>
+            <Canvas className="canvas" 
+                shadows 
+                camera={{ position: [-100, 100, 0], fov:30, far: 100000 }} 
+                style={{ backgroundColor: "black", position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh" }}>
                 <Suspense fallback={<LoadBroadcaster onProgress={setProgress} />}>
                     <SolarSystem system={systemData} pairsRef={pairsRef}/>
                     <Environment background backgroundIntensity={0.2} environmentIntensity={0.1} files={[
-                        'src/assets/skybox/px.jpg',
-                        'src/assets/skybox/nx.jpg',
-                        'src/assets/skybox/py.jpg',
-                        'src/assets/skybox/ny.jpg',
-                        'src/assets/skybox/pz.jpg',
-                        'src/assets/skybox/nz.jpg',
+                        "src/assets/skybox/px.jpg",
+                        "src/assets/skybox/nx.jpg",
+                        "src/assets/skybox/py.jpg",
+                        "src/assets/skybox/ny.jpg",
+                        "src/assets/skybox/pz.jpg",
+                        "src/assets/skybox/nz.jpg",
                     ]}/>
                 </Suspense>
 
