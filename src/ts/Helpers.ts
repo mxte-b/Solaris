@@ -1,6 +1,6 @@
 import gsap from "gsap"
 import type { RefObject } from "react";
-import { type RefPair } from "../ts/globals";
+import { type RefPair } from "./globals";
 
 export default class Helpers {
     static KM_PER_LIGHT_SECOND = 299_792.458;

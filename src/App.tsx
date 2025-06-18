@@ -54,7 +54,7 @@ function App() {
                 style={{ backgroundColor: "black", position: "absolute", top: 0, left: 0, width: "100vw", height: "100vh" }}>
                 <Suspense fallback={<LoadBroadcaster onProgress={setProgress} />}>
                     <SolarSystem system={systemData} pairsRef={pairsRef}/>
-                    <Environment background backgroundIntensity={0.2} environmentIntensity={0.1} files={[
+                    <Environment background backgroundIntensity={0.2} environmentIntensity={0.5} files={[
                         "src/assets/skybox/px.jpg",
                         "src/assets/skybox/nx.jpg",
                         "src/assets/skybox/py.jpg",

@@ -1,7 +1,7 @@
 import Star from "./Star";
 import Orbit from "./Orbit";
 import Planet from "./Planet";
-import Helpers from "./Helpers";
+import Helpers from "../ts/Helpers";
 import { Vector2, Vector3 } from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { Fragment, Suspense} from "react";

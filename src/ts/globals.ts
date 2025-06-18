@@ -103,3 +103,9 @@ export type PointerEvents = {
     onPointerUp?: (e: PointerEvent) => void;
     onClick?: (e: PointerEvent) => void;
 }
+
+/**
+ * Easing types for the Animator class
+ */
+export type Easing = "linear" | "easeIn" | "easeOut" | 
+                     "easeInOut" | "easeInOutCubic";

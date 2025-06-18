@@ -1,7 +1,7 @@
 import "../css/HUD.css"
 import { useEffect, type RefObject } from "react";
 import type { RefPair } from "../ts/globals";
-import Helpers from "./Helpers";
+import Helpers from "../ts/Helpers";
 
 /**
  * HUD (Heads-Up Display) component renders the navigation bar and branding for the application.
