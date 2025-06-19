@@ -1,6 +1,6 @@
 import gsap from "gsap"
 import type { RefObject } from "react";
-import { type RefPair } from "./globals";
+import { useGlobals, type RefPair } from "./globals";
 
 export default class Helpers {
     static KM_PER_LIGHT_SECOND = 299_792.458;
@@ -44,7 +44,10 @@ export default class Helpers {
 
     static CreateClickHandler(planet: RefPair, onClick: (planet: RefPair) => void) {
         return (e: PointerEvent) => {
+            if (useGlobals.getState().isTravelling) return;
+
             e.stopPropagation();
+
             onClick(planet);
             this.clearSelectedIndicator(planet.domRef);
 

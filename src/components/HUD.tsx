@@ -1,12 +1,49 @@
 import "../css/HUD.css"
-import { useEffect, type RefObject } from "react";
-import type { RefPair } from "../ts/globals";
 import Helpers from "../ts/Helpers";
+import gsap from "gsap";
+import { useEffect, type RefObject } from "react";
+import { useGlobals, type RefPair } from "../ts/globals";
 
 /**
  * HUD (Heads-Up Display) component renders the navigation bar and branding for the application.
  */
 const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
+
+    const travelStatus = useGlobals(state => state.travelStatus);
+
+    useEffect(() => {
+        if (!travelStatus) return;
+
+        // Animating the main element
+        gsap.set(".travel-status", { y: "100%" });
+        gsap.to(".travel-status", {
+            duration: 0.5,
+            y: 0,
+            ease: "power3.inOut"
+        })
+
+        // Animating the progress bar
+        gsap.set(".travel-progress", { width: 0 });
+        gsap.to(".travel-progress", {
+            delay: 0.5,
+            duration: travelStatus.travelDuration - 0.5,
+            width: "100%"
+        });
+
+        // Hide the main element
+        setTimeout(() => {
+            // Animating the main element
+            gsap.to(".travel-status", {
+                duration: 0.5,
+                y: "100%",
+                ease: "power3.inOut"
+            })
+        }, travelStatus.travelDuration * 1000);
+
+        return () => {
+            gsap.killTweensOf(".travel-status, .travel-progress");
+        }
+    }, [travelStatus]);
 
     // Animate the default selected indicator
     useEffect(() => {
@@ -32,6 +69,14 @@ const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
                         <div className="planet-selection"/>
                     </div>
                 ))}
+                { travelStatus && <div className="travel-status">
+                    <div className="travel-info">
+                        <div className="travel-destination">Travelling to {travelStatus.destination}</div>
+                        <div className="travel-progress-wrapper">
+                            <div className="travel-progress"></div>
+                        </div>
+                    </div>
+                </div> }
             </div>
         </div>
     );

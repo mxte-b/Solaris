@@ -2,9 +2,16 @@ import type { RefObject } from "react";
 import type { Mesh } from "three";
 import { create } from "zustand";
 
+/* ----------------------------- Zustand stores ----------------------------- */
 type GlobalValues = {
     selectedPlanet: RefPair | null;
     setSelectedPlanet: (planet: RefPair) => void;
+
+    isTravelling: boolean;
+    setIsTravelling: (value: boolean) => void;
+
+    travelStatus: TravelStatus | null;
+    setTravelStatus: (status: TravelStatus) => void;
     
     distanceScale: number;
     setDistanceScale: (scale: number) => void;
@@ -16,6 +23,12 @@ type GlobalValues = {
 export const useGlobals = create<GlobalValues>(set => ({
     selectedPlanet: null,
     setSelectedPlanet: (planet : RefPair) => set({ selectedPlanet: planet }),
+
+    isTravelling: false,
+    setIsTravelling: (value: boolean) => set({ isTravelling: value }),
+
+    travelStatus: null,
+    setTravelStatus: (status: TravelStatus) => set({ travelStatus: status }),
 
     distanceScale: 5,
     setDistanceScale: (scale : number) => set({ distanceScale: scale }),
@@ -107,5 +120,12 @@ export type PointerEvents = {
 /**
  * Easing types for the Animator class
  */
-export type Easing = "linear" | "easeIn" | "easeOut" | 
-                     "easeInOut" | "easeInOutCubic";
+export type Easing = "linear" | "easeIn" | "easeOut" | "easeInOut" | "easeInOutCubic";
+
+/**
+ * Data structure for travel status
+ */
+export type TravelStatus = {
+    destination: string;
+    travelDuration: number;
+}

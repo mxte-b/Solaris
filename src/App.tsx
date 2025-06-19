@@ -11,7 +11,7 @@ import HUD from "./components/HUD"
 import systemData from "./assets/system.json"
 import SolarSystem from "./components/SolarSystem"
 import LoadingScreen from "./components/LoadingScreen"
-import { useGlobals, type RefPair } from "./ts/globals"
+import { type RefPair } from "./ts/globals"
 import LoadBroadcaster from "./components/LoadBroadcaster"
 import CameraTargetController from "./components/CameraTargetController"
 

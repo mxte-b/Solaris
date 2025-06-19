@@ -14,6 +14,7 @@
     --text-primary: white;
     --text-secondary: #c5c5c5;
     --hud-color: #ffbb29;
+    --hud-color-shadow: #865e07;
 }
 
 .navbar {
@@ -163,10 +164,83 @@ div:has(.loader) {
     transform: translate(-50%, -50%);
     font-size: 12px;
     letter-spacing: 5px;
-    color: var(--border-color);
+    color: #ffbb291d;
     font-family: 'JetBrains Mono';
     text-transform: uppercase;
 }
+
+.travel-status {
+    bottom: 0;
+    left: 0;
+    width: calc(100% - 2rem);
+    height: auto;
+    position: absolute;
+    z-index: 9999;
+    padding: 1rem;
+    will-change: transform;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.travel-status.hidden {
+    transform: translate3d(0, 100%, 0);
+}
+
+.travel-info {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 1rem 1rem;
+    backdrop-filter: blur(5px);
+    border: 2px solid var(--hud-color-shadow);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.travel-destination {
+    margin-right: 10px;
+    min-height: 25px;
+    font-family: "JetBrains Mono";
+    text-transform: uppercase;
+    color: var(--hud-color);
+    font-size: 20px;
+    text-align: center;
+    mix-blend-mode: difference;
+    letter-spacing: 10px;
+    text-shadow: 0px 0px 5px var(--hud-color);
+}
+.travel-destination::after {
+    position: absolute;
+    content: "";
+    background-color: var(--hud-color);
+    width: 10px;
+    height: 25px;
+    animation: blink 1s infinite;
+    box-shadow: 0px 0px 5px var(--hud-color);
+}
+
+.travel-progress-wrapper {
+    width: 100%;
+}
+
+.travel-progress {
+    height: 4px;
+    background-image: linear-gradient(135deg, var(--hud-color) 25%, var(--hud-color-shadow) 25%, var(--hud-color-shadow) 50%, var(--hud-color) 50%, var(--hud-color) 75%, var(--hud-color-shadow) 75%, var(--hud-color-shadow));
+    background-size: 15px 15px;
+    background-repeat: repeat;
+    box-shadow: 0px 0px 2px var(--hud-color);
+}
+
+.travel-progress::after {
+    content: "";
+    position: absolute;
+    height: 4px;
+    width: calc(100% - 2rem);
+    background-color: #ffbb2924;
+}
+
 
 @keyframes fadein {
     to {
@@ -177,6 +251,18 @@ div:has(.loader) {
 
 @keyframes fadeout {
     to {
+        opacity: 0;
+    }
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
         opacity: 0;
     }
 }
