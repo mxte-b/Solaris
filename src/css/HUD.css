@@ -164,7 +164,7 @@ div:has(.loader) {
     transform: translate(-50%, -50%);
     font-size: 12px;
     letter-spacing: 5px;
-    color: #ffbb291d;
+    color: var(--hud-color);
     font-family: 'JetBrains Mono';
     text-transform: uppercase;
 }

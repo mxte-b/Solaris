@@ -1,5 +1,6 @@
 import { Quaternion, Vector3 } from "three";
 import type { Easing } from "./globals";
+import { CubicBezier } from "./CubicBezier";
 
 
 type Animatable = Vector3 | Quaternion;
@@ -9,7 +10,7 @@ export default class Animator<T extends Animatable> {
     end: T;
     duration: number;
     startTime: number;
-    easing: Easing;
+    easing: Easing | CubicBezier;
     delay: number;
 
     private static easingFunctions: Record<Easing, (t: number) => number> = {
@@ -20,7 +21,7 @@ export default class Animator<T extends Animatable> {
         "easeInOutCubic": t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
     };
 
-    constructor(start: T, end: T, duration: number, easing: Easing, delay: number = 0) {
+    constructor(start: T, end: T, duration: number, easing: Easing | CubicBezier, delay: number = 0) {
         this.start = start.clone() as T;
         this.end = end.clone() as T;
         this.duration = duration;
@@ -53,7 +54,7 @@ export default class Animator<T extends Animatable> {
     }
 
     private getEasedT(t: number) {
-        const easingFunc = Animator.easingFunctions[this.easing];
+        const easingFunc = this.easing instanceof CubicBezier ? this.easing.getFunction() : Animator.easingFunctions[this.easing];
         if (!easingFunc) throw new Error("Unknown easing function.");
 
         return easingFunc(t);
