@@ -105,6 +105,11 @@ div:has(.loader) {
     --border-color: #ffbb29;
 }
 
+.planet-indicator.moon {
+    will-change: opacity;
+    transition: opacity 0.5s ease-in-out;
+}
+
 .planet-selection { 
     top: 0;
     left: 0;
@@ -208,7 +213,7 @@ div:has(.loader) {
     font-size: 20px;
     text-align: center;
     mix-blend-mode: difference;
-    letter-spacing: 10px;
+    letter-spacing: 5px;
     text-shadow: 0px 0px 5px var(--hud-color);
 }
 .travel-destination::after {

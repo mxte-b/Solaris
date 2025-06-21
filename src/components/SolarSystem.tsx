@@ -23,20 +23,21 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
     const logScaled = (x: number) => Math.min(Math.max(Math.log(x + 1) * RADIUS_SCALE, 0.2), 10); 
 
     // Setters
+    const selectedPlanet = useGlobals(state => state.selectedPlanet);
     const setSelectedPlanet = useGlobals(state => state.setSelectedPlanet);
 
     // Project world positions to screen space each frame with linear extrapolation
     useFrame(() => {
         const camInv = camera.matrixWorldInverse
 
-        pairsRef.current.forEach(({ meshRef, domRef }) => {
+        pairsRef.current.forEach(({ id, meshRef, domRef }) => {
             const mesh = meshRef.current;
             const div = domRef.current;
 
             if (!mesh || !div) return;
 
+            // Updating indicator positions
             mesh.getWorldPosition(tmpWorld);
-
             tmpCam.copy(tmpWorld).applyMatrix4(camInv);
 
             if (tmpCam.z > 0) {
@@ -60,6 +61,30 @@ const SolarSystem = ({ system , pairsRef} : SolarSystemProps) => {
             }
 
             div.style.transform = `translate3d(${tmpSSC.x - 20}px, ${tmpSSC.y - 20}px, 0)`;
+
+            // Hiding moon indicators when necessary
+            if (id < 100) return;
+
+            const parent = pairsRef.current.find(x => x.id == Math.floor(id / 100))
+            const parentMesh = parent?.meshRef.current;
+
+            if (!parentMesh || !parent) return;
+
+            const dist = camera.position.distanceTo(parentMesh.position) / parentMesh.geometry.boundingSphere!.radius;
+
+            // Hide the indicator if it's not the selected moon or irrelevant due to distance or parent mismatch
+            const isNotSelected = selectedPlanet?.id !== id;
+            const isTooFar = dist > 50;
+
+            const hasDifferentParent = selectedPlanet && (
+                (selectedPlanet.id > 100 ? Math.floor(selectedPlanet.id / 100) : selectedPlanet.id) !== parent.id
+            );
+
+            if (isNotSelected && (isTooFar || hasDifferentParent)) {
+                div.style.opacity = "0";
+            } else {
+                div.style.opacity = "1";
+            }
         });
     }, 2);
 

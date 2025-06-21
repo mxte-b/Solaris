@@ -10,6 +10,7 @@ import { useGlobals, type RefPair } from "../ts/globals";
 const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
 
     const travelStatus = useGlobals(state => state.travelStatus);
+    const selectedPlanet = useGlobals(state => state.selectedPlanet);
 
     useEffect(() => {
         if (!travelStatus) return;
@@ -45,6 +46,13 @@ const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
         }
     }, [travelStatus]);
 
+    // Displaying moons when the parent planet is selected
+    useEffect(() => {
+        if (!selectedPlanet) return;
+
+        console.log(selectedPlanet)
+    }, [selectedPlanet]);
+
     // Animate the default selected indicator
     useEffect(() => {
         Helpers.SelectIndicatorInstant(document.querySelector(".planet-indicator.selected") as HTMLDivElement);
@@ -63,12 +71,15 @@ const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
                 </h5>
             </div>
             <div className="hud">
+                {/* Planet indicators */}
                 {pairsRef.current.map((pair, i) => (
                     <div key={i} ref={pair.domRef} className={"planet-indicator" + ((pair.id > 100) ? " moon" : "") + (i == 0 ? " selected" : "")}>
                         <div className="planet-name">{pair.name}</div>
                         <div className="planet-selection"/>
                     </div>
                 ))}
+
+                {/* Travel status information */}
                 { travelStatus && <div className="travel-status">
                     <div className="travel-info">
                         <div className="travel-destination">Travelling to {travelStatus.destination}</div>
@@ -77,6 +88,10 @@ const HUD = ({ pairsRef } : { pairsRef: RefObject<RefPair[]>}) => {
                         </div>
                     </div>
                 </div> }
+
+                {/* Time */}
+
+                {/* Quick navigation */}
             </div>
         </div>
     );
